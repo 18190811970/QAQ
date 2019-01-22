@@ -1,0 +1,117 @@
+
+{% extends 'web/base_main.html' %}
+
+{% block title %}
+    jay个人博客
+{% endblock %}
+
+{% block css %}
+    {% load static %}
+    {{ block.super }}
+    <link href="{% static 'web/css/index.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block js1 %}
+    <script src="{% static 'web/js/jquery.min.js' %}" type="text/javascript"></script>
+    <script type="text/javascript" src="{% static 'web/js/comm.js' %}"></script>
+{% endblock %}
+
+{% block left %}
+    <aside class="l_box">
+        <div class="about_me">
+            <h2>关于我</h2>
+            <ul>
+                <i><img src="/static/web/images/3.jpg"></i>
+                <p><b>jay</b>&emsp;&emsp;</p>
+            </ul>
+        </div>
+        <div class="wdxc">
+            <h2>我的相册</h2>
+            <ul>
+                <li><a href="{% url 'web:share' %}"><img src="/static/web/images/7.jpg"></a></li>
+                <li><a href="{% url 'web:share' %}"><img src="/static/web/images/8.jpg"></a></li>
+                <li><a href="{% url 'web:share' %}"><img src="/static/web/images/9.jpg"></a></li>
+                <li><a href="{% url 'web:share' %}"><img src="/static/web/images/10.jpg"></a></li>
+                <li><a href="{% url 'web:share' %}"><img src="/static/web/images/11.jpg"></a></li>
+                <li><a href="{% url 'web:share' %}"><img src="/static/web/images/12.jpg"></a></li>
+            </ul>
+        </div>
+        <div class="search">
+            <form action="" method="post" name="searchform" id="searchform">
+                <input name="keyboard" id="keyboard" class="input_text" value="请输入关键字词" style="color: rgb(153, 153, 153);" onfocus="if(value=='请输入关键字词'){this.style.color='#000';value=''}" onblur="if(value==''){this.style.color='#999';value='请输入关键字词'}" type="text">
+                <input name="show" value="title" type="hidden">
+                <input name="tempid" value="1" type="hidden">
+                <input name="tbname" value="news" type="hidden">
+                <input name="Submit" class="input_submit" value="搜索" type="submit">
+            </form>
+        </div>
+        <div class="fenlei">
+            <h2>文章分类</h2>
+            <ul>
+                {% for column in columns_list %}
+                    {% if column.0 %}
+                        <li><a href="{% url 'web:column_detail' column.1.id %}">{{ column.1.column_name }}（{{ column.0 }}）</a></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="tuijian">
+            <h2>站长推荐</h2>
+            <ul>
+                {% for article in articles %}
+                    <li><a href="{% url 'web:article_detail' article.id %}">{{ article.title }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="links">
+            <h2>友情链接</h2>
+            <ul>
+                <a href="https://yxj-saber.github.io">个人博客</a> <a href="https://yxj-saber.github.io">博客</a>
+            </ul>
+        </div>
+        <div class="guanzhu">
+            <h2>关注</h2>
+            <ul>
+                <img src="{% static 'web/images/wechat.png' %}">
+            </ul>
+        </div>
+    </aside>
+{% endblock %}
+
+{% block right %}
+    <main class="r_box">
+
+        {% for article in articles %}
+            <li><i><a href="{% url 'web:article_detail' article.id %}"><img src="/media/{{ article.image }}"></a></i>
+                <h3><a href="{% url 'web:article_detail' article.id %}">{{ article.title }}</a></h3>
+                <p>{{ article.describe }}</p>
+            </li>
+        {% endfor %}
+
+    </main>
+<main class="r_box">
+        <div class="about">
+            <p>李白（701年－762年） ，字太白，号青莲居士，又号“谪仙人”，是唐代伟大的浪漫主义诗人，被后人誉为“诗仙”，与杜甫并称为“李杜”，为了与另两位诗人李商隐与杜牧即“小李杜”区别，杜甫与李白又合称“大李杜”。据《新唐书》记载，李白为兴圣皇帝（凉武昭王李暠）九世孙，与李唐诸王同宗。其人爽朗大方，爱饮酒作诗，喜交友。<br />
+                <br />
+               李白深受黄老列庄思想影响，有《李太白集》传世，诗作中多以醉时写的，代表作有《望庐山瀑布》《行路难》《蜀道难》《将进酒》《梁甫吟》《早发白帝城》等多首。<br />
+                <br />
+            <img src="/static/web/images/2.jpg">     李白所作词赋，宋人已有传记（如文莹《湘山野录》卷上），就其开创意义及艺术成就而言，“李白词”享有极为崇高的地位。<br />
+                <br />
+                李白的乐府、歌行及绝句成就为最高。其歌行，完全打破诗歌创作的一切固有格式，空无依傍，笔法多端，达到了任随性之而变幻莫测、摇曳多姿的神奇境界。李白的绝句自然明快，飘逸潇洒，能以简洁明快的语言表达出无尽的情思。在盛唐诗人中，王维、孟浩然长于五绝，王昌龄等七绝写得很好，兼长五绝与七绝而且同臻极境的，只有李白一人。<br />
+                <br />
+                李白的诗雄奇飘逸，艺术成就极高。他讴歌祖国山河与美丽的自然风光，风格雄奇奔放，俊逸清新，富有浪漫主义精神，达到了内容与艺术的统一。他被贺知章称为“谪仙人”，其诗大多为描写山水和抒发内心的情感为主。李白的诗具有“笔落惊风雨，诗成泣鬼神”的艺术魅力，这也是他的诗歌中最鲜明的艺术特色。李白的诗富于自我表现的主观抒情色彩十分浓烈，感情的表达具有一种排山倒海、一泻千里的气势。他与杜甫并称为“大李杜”，（李商隐与杜牧并称为“小李杜”）。
+                <br />
+                <br />　李白诗中常将想象、夸张、比喻、拟人等手法综合运用，从而造成神奇异彩、瑰丽动人的意境，这就是李白的浪漫主义诗作给人以豪迈奔放、飘逸若仙的原因所在。
+                <br />
+            <img src="/static/web/images/12.jpg">       　李白的诗歌对后代产生了极为深远的影响。中唐的韩愈、孟郊、李贺，宋代的苏轼、陆游、辛弃疾，明清的高启、杨慎、龚自珍等著名诗人，都受到李白诗歌的巨大影响。
+                <br />风格
+　　豪迈奔放，清新飘逸，想象丰富，意境奇妙，语言奇妙，浪漫主义，立意清晰。
+               &nbsp</p>
+
+
+
+        </div>
+    </main>
+
+
+{% endblock %}

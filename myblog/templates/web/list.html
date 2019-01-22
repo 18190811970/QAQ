@@ -1,0 +1,111 @@
+
+{% extends 'web/base_main.html' %}
+
+{% block title %}
+    jay个人博客
+{% endblock %}
+
+{% block css %}
+    {% load static %}
+    {{ block.super }}
+    <link href="{% static 'web/css/index.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block js1 %}
+    <script type="text/javascript" src="{% static 'web/js/jquery.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'web/js/hc-sticky.js' %}"></script>
+    <script type="text/javascript" src="{% static 'web/js/comm.js' %}"></script>
+{% endblock %}
+
+{% block left %}
+    <aside class="l_box">
+        <div class="search">
+            <form action="" method="post" name="searchform" id="searchform">
+                <input name="keyboard" id="keyboard" class="input_text" value="请输入关键字词" style="color: rgb(153, 153, 153);" onfocus="if(value=='请输入关键字词'){this.style.color='#000';value=''}" onblur="if(value==''){this.style.color='#999';value='请输入关键字词'}" type="text">
+                <input name="show" value="title" type="hidden">
+                <input name="tempid" value="1" type="hidden">
+                <input name="tbname" value="news" type="hidden">
+                <input name="Submit" class="input_submit" value="搜索" type="submit">
+            </form>
+        </div>
+        <div class="fenlei">
+            <h2>文章分类</h2>
+            <ul>
+
+                {% for column in columns_list %}
+                    {% if column.0 %}
+                        <li><a href="{% url 'web:column_detail' column.1.id %}">{{ column.1.column_name }}（{{ column.0 }}）</a></li>
+                    {% endif %}
+                {% endfor %}
+
+            </ul>
+        </div>
+        <div class="tuijian">
+            <h2>站长推荐</h2>
+            <ul>
+
+                {% for article in articles %}
+                    <li><a href="{% url 'web:article_detail' article.id %}">{{ article.title }}</a></li>
+                {% endfor %}
+
+            </ul>
+        </div>
+        <div class="tuijian">
+            <h2>点击排行</h2>
+            <ul>
+
+                {% for article in articles %}
+                    <li><a href="{% url 'web:article_detail' article.id %}">{{ article.title }}</a></li>
+                {% endfor %}
+
+            </ul>
+        </div>
+        <div class="cloud">
+            <h2>标签云</h2>
+            <ul>
+                <a href="">陌上花开</a>
+                <a href="">校园生活</a>
+                <a href="">html5</a>
+                <a href="">SumSung</a>
+                <a href="">青春</a>
+                <a href="">温暖</a>
+                <a href="">阳光</a>
+                <a href="">三星</a>
+                <a href="">索尼</a>
+                <a href="">华维荣耀</a>
+                <a href="">三星</a>
+            </ul>
+        </div>
+        <div class="guanzhu">
+            <h2>关注我 </h2>
+            <ul>
+                <img src="{% static 'web/images/wechat.png' %}">
+            </ul>
+        </div>
+    </aside>
+{% endblock %}
+
+{% block right %}
+    <main class="r_box">
+
+        {% for article in articles %}
+            <li><i><a href="{% url 'web:article_detail' article.id %}"><img src="/media/{{ article.image }}"></a></i>
+                <h3><a href="{% url 'web:article_detail' article.id %}">{{ article.title }}</a></h3>
+                <p>{{ article.describe }}</p>
+            </li>
+        {% endfor %}
+
+    </main>
+    <div class="about">
+            <p>李白从少年时起，常去戴天山寻找道观的道士谈论道经。后来，他与一位号为东岩子的隐者隐居于岷山，潜心学习。他们在自己居住的山林里，饲养了许多奇禽异鸟，做了动物饲养员。这些美丽而驯良的鸟儿，由于饲养惯了，定时飞来求食，好像能听懂人的语言似的，一声呼唤，便从四处飞落阶前，甚至可以在人的手里啄食谷粒，一点都不害怕。这件事被传作奇闻，最后竟使绵州刺史亲自到山中观看鸟儿们的就食情况。这位刺史见他们能指挥鸟类的行动，认定他们有道术，便想推荐二人去参加道科的考试。可是，二人都婉言拒绝了。当时有名的纵横家赵蕤也是李白的老师，此人于开元四年（716）就著成了《长短经》十卷。那时李白才十五岁。赵蕤这部博考六经异同、分析天下形势、讲求兴亡治乱之道的纵横家式的著作引起了李白极大的兴趣。他以后一心要建功立业，喜谈王霸之道，也正是受到这部书的影响。
+            <img src="/static/web/images/2.jpg">     李白所作词赋，宋人已有传记（如文莹《湘山野录》卷上），就其开创意义及艺术成就而言，“李白词”享有极为崇高的地位。<br />
+                <br />盛唐国力强盛，多数士人渴望建功立业。李白以不世之才自居，以“奋其智能，愿为辅弼，使寰区大定，海县清一”的功业自许，一生矢志不渝地追求实现“谈笑安黎元”、“终与安社稷”的理想。他以大鹏、天马、雄剑自比：“大鹏一日同风起，扶摇直上九万里。假令风歇时下来，犹能簸却沧溟水。”（《上李邕》）。他希望能像姜尚辅佐明君，像诸葛亮兴复汉室。《梁甫吟》《读诸葛武侯传抒怀》《永王东巡歌》《行路难》（其二）都反映了他的这类思想。
+
+            <img src="/static/web/images/12.jpg">       　李白的诗歌对后代产生了极为深远的影响。中唐的韩愈、孟郊、李贺，宋代的苏轼、陆游、辛弃疾，明清的高启、杨慎、龚自珍等著名诗人，都受到李白诗歌的巨大影响。
+                <br />李白既有清高傲岸的一面，又有世俗的一面，他的理想和自由，只能到山林、仙境、醉乡中去寻求，所以在《将进酒》《江上吟》《襄阳歌》等诗中流露出人生如梦、及时行乐、逃避现实等思想，这在封建社会正直孤傲的文人中也具有一定的代表性。
+               &nbsp</p>
+
+
+
+        </div>
+{% endblock %}

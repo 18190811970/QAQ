@@ -1,0 +1,122 @@
+
+{% extends 'web/base_main.html' %}
+
+{% block title %}
+    jay个人博客
+{% endblock %}
+
+{% block css %}
+    {% load static %}
+    {{ block.super }}
+    <link href="{% static 'web/css/index.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block js1 %}
+    <script type="text/javascript" src="{% static 'web/js/jquery.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'web/js/hc-sticky.js' %}"></script>
+    <script type="text/javascript" src="{% static 'web/js/comm.js' %}"></script>
+{% endblock %}
+
+{% block left %}
+    <aside class="l_box">
+        <div class="about_me">
+            <h2>关于我</h2>
+            <ul>
+                <i><img src="/static/web/images/13.jpg"></i>
+                <p><b>qaq</b>&emsp;&emsp;江湖难填恨海,剑出伤我心怀。</p>
+            </ul>
+        </div>
+        <div class="wdxc">
+            <h2>我的相册</h2>
+            <ul>
+                <li><a href="{% url 'web:share' %}"><img src="/static/web/images/7.jpg"></a></li>
+                <li><a href="{% url 'web:share' %}"><img src="/static/web/images/8.jpg"></a></li>
+                <li><a href="{% url 'web:share' %}"><img src="/static/web/images/9.jpg"></a></li>
+                <li><a href="{% url 'web:share' %}"><img src="/static/web/images/10.jpg"></a></li>
+                <li><a href="{% url 'web:share' %}"><img src="/static/web/images/11.jpg"></a></li>
+                <li><a href="{% url 'web:share' %}"><img src="/static/web/images/12.jpg"></a></li>
+            </ul>
+        </div>
+        <div class="search">
+            <form action="" method="post" name="searchform" id="searchform">
+                <input name="keyboard" id="keyboard" class="input_text" value="请输入关键字词" style="color: rgb(153, 153, 153);" onfocus="if(value=='请输入关键字词'){this.style.color='#000';value=''}" onblur="if(value==''){this.style.color='#999';value='请输入关键字词'}" type="text">
+                <input name="show" value="title" type="hidden">
+                <input name="tempid" value="1" type="hidden">
+                <input name="tbname" value="news" type="hidden">
+                <input name="Submit" class="input_submit" value="搜索" type="submit">
+            </form>
+        </div>
+        <div class="fenlei">
+            <h2>文章分类</h2>
+            <ul>
+                {% for column in columns_list %}
+                    {% if column.0 %}
+                        <li><a href="{% url 'web:column_detail' column.1.id %}">{{ column.1.column_name }}（{{ column.0 }}）</a></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="tuijian">
+            <h2>站长推荐</h2>
+            <ul>
+                {% for article in articles %}
+                    <li><a href="{% url 'web:article_detail' article.id %}">{{ article.title }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="guanzhu">
+            <h2>关注我 么么哒</h2>
+            <ul>
+                <img src="{% static 'web/images/wechat.png' %}">
+            </ul>
+        </div>
+    </aside>
+{% endblock %}
+
+{% block right %}
+    <main class="r_box">
+        <div class="gbook">
+            <div class="fb">
+                <ul>
+                    <p class="fbtime"><span> 2018-07-21 </span> 夜月归途</p>
+                    <p class="fbinfo">代表作品
+《将进酒》《蜀道难》《梦游天姥吟留别》《静夜思》《望庐山瀑布》《侠客行》《春思》《子夜秋歌》</p>
+                </ul>
+            </div>
+            <div class="hf">
+                <ul>
+                    <p class="zzhf"><font color="#FF0000">站长回复:</font>感谢捧场啊！</p>
+                </ul>
+            </div>
+            <div class="fb">
+                <ul>
+                    <p class="fbtime"><span> 2018-07-10 </span> 周宏</p>
+                    <p class="fbinfo">实际上，从唐末五代《花间集》以来，所有的唐宋词选集、总集，在具体操作中，都不会忘记李白，至少也要在序跋题记中提上一句。其作为文学史上的第一位大词人，虽然只有很少几首著作权经常受到怀疑的词作，但却从来没有人对他表示过任何的不满或批评意见。如果评选天下第一词人，李白无疑将以全票当选“词王”。</p>
+                </ul>
+            </div>
+            <div class="hf">
+                <ul>
+                    <p class="zzhf"><font color="#FF0000">站长回复:</font>李白不仅文采斐然，其剑术亦是十分高明。他“十五好剑术”，“剑术自通达”。造诣非同一般。李白的诗，裴旻的剑术，张旭的草书合称唐代三绝。。</p>
+                </ul>
+            </div>
+            <div class="gbox">
+                <form action="../../enews/index.php" method="post" name="form1" id="form1">
+                    <p> <strong>来说点儿什么吧...</strong></p>
+                    <p><span> 您的姓名:</span>
+                        <input name="name" type="text" id="name">
+                        *</p>
+                    <p><span>联系邮箱:</span>
+                        <input name="email" type="text" id="email">
+                        *</p>
+                    <p><span class="tnr">留言内容:</span>
+                        <textarea name="lytext" cols="60" rows="12" id="lytext"></textarea>
+                    </p>
+                    <p>
+                        <input type="submit" name="Submit3" value="提交">
+                        <input name="enews" type="hidden" id="enews" value="AddGbook">
+                    </p>
+                </form>
+            </div>
+        </div>
+    </main>
+{% endblock %}
